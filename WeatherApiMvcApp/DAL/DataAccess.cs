@@ -12,8 +12,8 @@ namespace WeatherApiMvcApp.DAL
 {
     public class DataAccess : IDataAccess
     {
-        private readonly string _baseAddress = "http://api.openweathermap.org";
-        private readonly string _apiKey = "aa97b493f1c079f2d2db4538efb4d75c";
+        private const string _baseAddress = "http://api.openweathermap.org";
+        private const string _apiKey = "aa97b493f1c079f2d2db4538efb4d75c";
         //private HttpClient client;
 
         public DataAccess()
@@ -21,8 +21,6 @@ namespace WeatherApiMvcApp.DAL
             GetHttpClient instance = GetHttpClient.Instance();
             //client = instance.client;
         }
-
-
 
         public async Task<RootObject> GetWeather(string searchUri)
         {
@@ -36,8 +34,7 @@ namespace WeatherApiMvcApp.DAL
                 RootObject model = (RootObject)serializer.ReadObject(stream);
 
                 return model;
-            }
-            
+            }           
 
         }
 

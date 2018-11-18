@@ -36,7 +36,12 @@ namespace WeatherApiMvcApp.Controllers
             {
                var result = await businessLogic.GetWeather(model);
                viewModel.RootObject = result;
-               return View(viewModel);
+                
+                // Adds one hour to get accuret time
+                var sunrise  = new DateTime(1970, 1, 1, 1, 0, 0).AddSeconds(result.sys.sunrise);
+                var sunset = new DateTime(1970, 1, 1, 1,0,0).AddSeconds(result.sys.sunset);
+
+                return View(viewModel);
             }
 
             return View();

@@ -22,10 +22,41 @@
 
     <div id="CountryCode">
         <label>Country code <span id="gray"><small>optional</small></span></label>
-        <input asp-for="CountryCode" placeholder="Example: se, uk, us..."/>
+        <input asp-for="CountryCode" placeholder="Example: se, uk, us..." />
 
     </div>
 
     <input type="submit" value="Get weather" />
 </form>
+
+
+@if (Model.RootObject != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Temp</th>
+                <th>Min temp</th>
+                <th>Max temp</th>
+                <th>Country code</th>
+                <th>Sunrise</th>
+                <th>Sunset</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Model.RootObject.name</td>
+                <td>@Model.RootObject.main.temp</td>
+                <td>@Model.RootObject.main.temp_min</td>
+                <td>@Model.RootObject.main.temp_max</td>
+                <td>@Model.RootObject.sys.country</td>
+                <td>@Model.RootObject.sys.sunrise</td>
+                <td>@Model.RootObject.sys.sunset</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
 
