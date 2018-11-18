@@ -1,8 +1,31 @@
-﻿
+﻿@model ShowWeatherViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
 
-<p>Thomas väder app</p>
+<form asp-action="index" method="post">
+    <div id="City">
+        <label>City</label>
+        <input required asp-for="@Model.City" placeholder="City..." />
+        <span asp-validation-for="City"></span>
+    </div>
+
+    <div id="Units">
+        <label>Units</label>
+        <select asp-for="@Model.Units">
+            <option value="metric">Celcius</option>
+            <option value="imperial">Fahrenheit</option>
+            <option value="">Kelvin</option>
+        </select>
+    </div>
+
+    <div id="CountryCode">
+        <label>Country code <span id="gray"><small>optional</small></span></label>
+        <input asp-for="CountryCode" placeholder="Example: se, uk, us..."/>
+
+    </div>
+
+    <input type="submit" value="Get weather" />
+</form>
+

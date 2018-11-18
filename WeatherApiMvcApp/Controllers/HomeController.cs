@@ -6,28 +6,42 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WeatherApiMvcApp.BLL;
+using WeatherApiMvcApp.Models;
 using WeatherApiMvcApp.Models.ApiModels;
+using WeatherApiMvcApp.Models.ViewModels;
+using WeatherApiMvcApp.Services;
 
 namespace WeatherApiMvcApp.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<IActionResult> Index()
+
+        IBusinessLogic businessLogic;
+        ShowWeatherViewModel viewModel;
+        public HomeController(IBusinessLogic businessLogic)
+        {
+            this.businessLogic = businessLogic;
+            viewModel = new ShowWeatherViewModel();
+        }
+
+        public IActionResult Index() => View(viewModel);
+        
+
+        [HttpPost]
+        public async Task<IActionResult> Index(ShowWeatherViewModel model)
         {
 
-            using (HttpClient client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                client.BaseAddress = new Uri("http://api.openweathermap.org");
-                HttpResponseMessage responseMessage = await client.GetAsync("/data/2.5/weather?q=Stockholm,swe&units=metric&appid=aa97b493f1c079f2d2db4538efb4d75c");
-
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(RootObject));
-                Stream stream = await responseMessage.Content.ReadAsStreamAsync();
-                RootObject model = (RootObject)serializer.ReadObject(stream);
-
-
+               var result = await businessLogic.GetWeather(model);
+               viewModel.RootObject = result;
+               return View(viewModel);
             }
 
             return View();
         }
+
+        
     }
 }

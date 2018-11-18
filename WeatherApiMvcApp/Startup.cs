@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using WeatherApiMvcApp.BLL;
+using WeatherApiMvcApp.DAL;
 
 namespace WeatherApiMvcApp
 {
@@ -17,6 +19,8 @@ namespace WeatherApiMvcApp
         {
             services.AddMvc();
             services.AddDistributedMemoryCache();
+            services.AddScoped<IBusinessLogic, BusinessLogic>();
+            services.AddScoped<IDataAccess, DataAccess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
