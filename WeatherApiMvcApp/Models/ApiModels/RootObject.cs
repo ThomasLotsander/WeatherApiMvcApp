@@ -19,5 +19,6 @@ namespace WeatherApiMvcApp.Models.ApiModels
         public double id { get; set; }
         public string name { get; set; }
         public double cod { get; set; }
+        public string message { get; set; }
     }
 }

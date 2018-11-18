@@ -19,14 +19,13 @@ namespace WeatherApiMvcApp.Controllers
     {
 
         IBusinessLogic businessLogic;
-        ShowWeatherViewModel viewModel;
+         
         public HomeController(IBusinessLogic businessLogic)
         {
-            this.businessLogic = businessLogic;
-            viewModel = new ShowWeatherViewModel();
+            this.businessLogic = businessLogic;            
         }
 
-        public IActionResult Index() => View(viewModel);
+        public IActionResult Index() => View(new ShowWeatherViewModel());
 
 
         [HttpPost]
@@ -36,19 +35,25 @@ namespace WeatherApiMvcApp.Controllers
             if (ModelState.IsValid)
             {
                 var result = await businessLogic.GetWeather(model);
-                viewModel.RootObject = result;
+                var viewModel = businessLogic.CreateViewModel(result);
 
-                // TODO: Correct time to sync with city time, Stokhom CET time, New York GMT
-                // https://stackoverflow.com/questions/33639571/get-local-time-based-on-coordinates
+                if (viewModel == null)
+                {
+                    TempData["message"] = result.message;
+                }
+                else
+                {
 
-                viewModel.Sunrise = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(result.sys.sunrise);
-                viewModel.Sunset = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(result.sys.sunset);
-
-                return View(viewModel);
+                    return View(viewModel);
+                }
+                
+                
             }
 
-            return View();
+            return View(model);
         }
+
+       
 
 
     }

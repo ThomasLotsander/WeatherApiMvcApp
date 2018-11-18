@@ -31,8 +31,7 @@ namespace WeatherApiMvcApp.DAL
 
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(RootObject));
                 Stream stream = await responseMessage.Content.ReadAsStreamAsync();
-                RootObject model = (RootObject)serializer.ReadObject(stream);
-
+                RootObject model = (RootObject)serializer.ReadObject(stream);                
                 return model;
             }           
 
