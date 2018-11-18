@@ -18,5 +18,10 @@ namespace WeatherApiMvcApp.Models.ViewModels
 
         public string CountryCode { get; set; } = "";
 
+        public DateTime Sunrise { get; set; }
+
+        public DateTime Sunset { get; set; }
+
+
     }
 }

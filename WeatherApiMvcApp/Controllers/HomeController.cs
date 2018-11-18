@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -26,7 +27,7 @@ namespace WeatherApiMvcApp.Controllers
         }
 
         public IActionResult Index() => View(viewModel);
-        
+
 
         [HttpPost]
         public async Task<IActionResult> Index(ShowWeatherViewModel model)
@@ -34,12 +35,14 @@ namespace WeatherApiMvcApp.Controllers
 
             if (ModelState.IsValid)
             {
-               var result = await businessLogic.GetWeather(model);
-               viewModel.RootObject = result;
-                
-                // Adds one hour to get accuret time
-                var sunrise  = new DateTime(1970, 1, 1, 1, 0, 0).AddSeconds(result.sys.sunrise);
-                var sunset = new DateTime(1970, 1, 1, 1,0,0).AddSeconds(result.sys.sunset);
+                var result = await businessLogic.GetWeather(model);
+                viewModel.RootObject = result;
+
+                // TODO: Correct time to sync with city time, Stokhom CET time, New York GMT
+                // https://stackoverflow.com/questions/33639571/get-local-time-based-on-coordinates
+
+                viewModel.Sunrise = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(result.sys.sunrise);
+                viewModel.Sunset = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(result.sys.sunset);
 
                 return View(viewModel);
             }
@@ -47,6 +50,6 @@ namespace WeatherApiMvcApp.Controllers
             return View();
         }
 
-        
+
     }
 }

@@ -7,7 +7,7 @@ namespace WeatherApiMvcApp.Models.ApiModels
 {
     public class Weather
     {
-        public int id { get; set; }
+        public double id { get; set; }
         public string main { get; set; }
         public string description { get; set; }
         public string icon { get; set; }
