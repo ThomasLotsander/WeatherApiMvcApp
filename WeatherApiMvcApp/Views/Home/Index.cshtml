@@ -3,65 +3,80 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+  
+</style>
 
-<form asp-action="index" method="post">
-    <div id="City">
-        <label>City</label>
-        <input required asp-for="@Model.City" placeholder="City..." />
-        <span asp-validation-for="City"></span>
-        <span>@TempData["message"]</span>
-    </div>
+<div id="container">
+    <div id="weatherSearchDiv">
+        <form asp-action="index" method="post">
+            <div id="City">
+                <label>City</label>
+                <input required asp-for="@Model.City" placeholder="City..." />
+                <span asp-validation-for="City"></span>
+                <span>@TempData["message"]</span>
+            </div>
 
-    <div id="Units">
-        <label>Units</label>
-        <select asp-for="@Model.Units">
-            <option value="metric">Celcius</option>
-            <option value="imperial">Fahrenheit</option>
-            <option value="">Kelvin</option>
-        </select>
-    </div>
+            <div id="Units">
+                <label>Units</label>
+                <select asp-for="@Model.Units">
+                    <option value="metric">Celcius</option>
+                    <option value="imperial">Fahrenheit</option>
+                    <option value="">Kelvin</option>
+                </select>
+            </div>
 
-    <div id="CountryCode">
-        <label>Country code <span id="gray"><small>optional</small></span></label>
-        <input asp-for="CountryCode" value="@Model.CountryCode" placeholder="Example: se, uk, us..." />
-
-    </div>
-
-    <input type="submit" value="Get weather" />
-</form>
-
-
-@if (Model.RequestIsSuccessful)
-{
-    <table>
-        <thead>
-            <tr>
-                <th>City</th>
-                <th>Temp</th>
-                <th>Min temp</th>
-                <th>Max temp</th>
-                <th>Country code</th>
-                <th>Sunrise</th>
-                <th>Sunset</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
+            <div id="CountryCode">
                 
-                <td>@Model.RootObject.name</td>
-                <td>@Model.RootObject.main.temp</td>
+                <span><small>optional</small></span>
+                <br />
+                <label>Country code </label>
+                <input asp-for="CountryCode" placeholder="Example: se, uk, us..." />
+                @if (!String.IsNullOrWhiteSpace(Model.CountryCode) && TempData["message"] != null)
+                {
+                    <small>Try to remove country code for a different result</small>
+                }
 
-                <!-- Lägg till extra ifall det behövs-->
-                <td>@Model.RootObject.main.temp_max</td>
-                <td>@Model.RootObject.main.temp_min</td>
-                <td>@Model.CountryCode</td>
-                <td>@Model.Sunrise</td>
-                <td>@Model.Sunset</td>
-                <td><img src="@Model.WeatherIcon" alt="@Model.RootObject.weather[0].description" /></td>
-            </tr>
-        </tbody>
-    </table>
-}
+            </div>
+
+            <input type="submit" id="submitBtn" value="Get weather" />
+        </form>
+    </div>
 
 
+    @if (Model.RequestIsSuccessful)
+    {
+        <table id="weatherTable">
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Temp</th>
+                    @*<th>Min temp</th>*@
+                    @*<th>Max temp</th>*@
+                    <th>Country code</th>
+                    @*<th>Sunrise</th>*@
+                    @*<th>Sunset</th>*@
+                    <th colspan="2">Condition</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+
+                    <td>@Model.RootObject.name</td>
+                    <td>@Model.RootObject.main.temp</td>
+
+                    <!-- Lägg till extra ifall det behövs-->
+                    @*<td>@Model.RootObject.main.temp_max</td>*@
+                    @*<td>@Model.RootObject.main.temp_min</td>*@
+                    <td>@Model.CountryCode</td>
+                    @*<td>@Model.Sunrise</td>*@
+                    @*<td>@Model.Sunset</td>*@
+                    <td><img src="@Model.WeatherIcon" alt="Condition image" /></td>
+                    <td>@Model.RootObject.weather[0].description</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+</div>

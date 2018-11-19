@@ -1,0 +1,48 @@
+﻿#container {
+    margin: auto;
+    width: 85%;
+    position: relative;
+}
+
+#weatherSearchDiv {
+    float: left;
+    margin: 5px;
+}
+
+#City, #Units, #CountryCode {
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#submitBtn {
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    font-family: sans-serif;
+}
+
+#weatherTable {
+    margin: 5px;
+    font-family: sans-serif;
+    width: 80%;
+    float: left;
+    border-collapse: collapse;
+}
+
+    #weatherTable td, #weatherTable th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #weatherTable tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #weatherTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
