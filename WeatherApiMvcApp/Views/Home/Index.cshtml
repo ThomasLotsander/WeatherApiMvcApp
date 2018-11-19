@@ -23,7 +23,7 @@
 
     <div id="CountryCode">
         <label>Country code <span id="gray"><small>optional</small></span></label>
-        <input asp-for="CountryCode" value="@Model.RootObject.sys.country" placeholder="Example: se, uk, us..." />
+        <input asp-for="CountryCode" value="@Model.CountryCode" placeholder="Example: se, uk, us..." />
 
     </div>
 
@@ -38,11 +38,11 @@
             <tr>
                 <th>City</th>
                 <th>Temp</th>
-                @*<th>Min temp</th>
+                <th>Min temp</th>
                 <th>Max temp</th>
                 <th>Country code</th>
                 <th>Sunrise</th>
-                <th>Sunset</th>*@
+                <th>Sunset</th>
             </tr>
         </thead>
 
@@ -53,11 +53,11 @@
                 <td>@Model.RootObject.main.temp</td>
 
                 <!-- Lägg till extra ifall det behövs-->
-                @*<td>@Model.RootObject.main.temp_max</td>
+                <td>@Model.RootObject.main.temp_max</td>
                 <td>@Model.RootObject.main.temp_min</td>
                 <td>@Model.CountryCode</td>
                 <td>@Model.Sunrise</td>
-                <td>@Model.Sunset</td>*@
+                <td>@Model.Sunset</td>
                 <td><img src="@Model.WeatherIcon" alt="@Model.RootObject.weather[0].description" /></td>
             </tr>
         </tbody>

@@ -39,23 +39,21 @@ namespace WeatherApiMvcApp.BLL
         private string SetupUri(WeatherSearch model)
         {
             // Determans if countrycode should be a parameter or not
-            string uri = "";
             if (String.IsNullOrWhiteSpace(model.CountryCode))
             {
-                return $"/data/2.5/weather?q={model.City}&units={model.Units}";
+                return $"/data/2.5/weather?q={model.City}&type=like&units={model.Units}";
             }
             else
             {
-                return $"/data/2.5/weather?q={model.City},{model.CountryCode}&units={model.Units}";
+                return $"/data/2.5/weather?q={model.City},{model.CountryCode}&type=like&units={model.Units}";
             }
 
             
         }
 
-        // Takes a timestamp date and converts to datetime        
+        // Takes a time in seconds and converts it to correct date 
         public DateTime ConvertNumberToAccuretTime(double timeAsDouble)
         {
-
             // TODO: Check if timeAsDouble is valid to become datetime
             try
             {

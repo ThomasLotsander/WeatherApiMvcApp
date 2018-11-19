@@ -43,10 +43,8 @@ namespace WeatherApiMvcApp.Controllers
                 }
                 else
                 {
-
                     return View(viewModel);
-                }
-                
+                }               
                 
             }
 
