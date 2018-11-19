@@ -8,10 +8,7 @@ using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WeatherApiMvcApp.BLL;
-using WeatherApiMvcApp.Models;
-using WeatherApiMvcApp.Models.ApiModels;
 using WeatherApiMvcApp.Models.ViewModels;
-using WeatherApiMvcApp.Services;
 
 namespace WeatherApiMvcApp.Controllers
 {

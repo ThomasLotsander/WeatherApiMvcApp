@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using WeatherApiMvcApp.Models.ApiModels;
-using WeatherApiMvcApp.Services;
 
 namespace WeatherApiMvcApp.DAL
 {
@@ -14,14 +13,8 @@ namespace WeatherApiMvcApp.DAL
     {
         private const string _baseAddress = "http://api.openweathermap.org";
         private const string _apiKey = "aa97b493f1c079f2d2db4538efb4d75c";
-        //private HttpClient client;
 
-        public DataAccess()
-        {
-            GetHttpClient instance = GetHttpClient.Instance();
-            //client = instance.client;
-        }
-
+        
         public async Task<RootObject> GetWeather(string searchUri)
         {
             using(HttpClient client = new HttpClient())

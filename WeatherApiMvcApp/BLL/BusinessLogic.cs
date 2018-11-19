@@ -28,12 +28,17 @@ namespace WeatherApiMvcApp.BLL
 
         private WeatherSearch CreateSearchModel(ShowWeatherViewModel model)
         {
-            return new WeatherSearch()
+            if (model != null)
             {
-                City = model.City?.Trim(),
-                CountryCode = model.CountryCode,
-                Units = model.Units?.Trim()
-            };
+                return new WeatherSearch()
+                {
+                    City = model.City?.Trim() ?? "",
+                    CountryCode = model.CountryCode,
+                    Units = model.Units?.Trim() ?? ""
+                };
+            }
+            return null;
+            
         }
 
         private string SetupUri(WeatherSearch model)
@@ -78,10 +83,10 @@ namespace WeatherApiMvcApp.BLL
                 viewModel.City = result.name;
 
                 // Country code ska stå med två bokstäver i sökningen men med hela staden i tabellen
-                viewModel.CountryCode = result.sys.country;
-                viewModel.Sunrise = ConvertNumberToAccuretTime(result.sys.sunrise);
-                viewModel.Sunset = ConvertNumberToAccuretTime(result.sys.sunset);
-                viewModel.WeatherIcon = $"http://openweathermap.org/img/w/{result.weather[0].icon}.png";
+                viewModel.CountryCode = result.sys?.country ?? "";
+                viewModel.Sunrise = ConvertNumberToAccuretTime(result.sys?.sunrise ?? 0);
+                viewModel.Sunset = ConvertNumberToAccuretTime(result.sys?.sunset ?? 0);
+                viewModel.WeatherIcon = $"http://openweathermap.org/img/w/{result.weather?[0].icon}.png" ?? "";
 
                 return viewModel;
                 
